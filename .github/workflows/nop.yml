@@ -1,0 +1,11 @@
+name: nop
+
+on:
+    workflow_dispatch:
+
+jobs:
+    nop-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Do nothing
+              run: ":"
