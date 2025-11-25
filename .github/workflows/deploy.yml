@@ -1,0 +1,12 @@
+name: build-and-deploy
+
+on:
+    workflow_dispatch:
+    push:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    nop: { runs-on: ubuntu-latest, steps: [run: ":"] }
