@@ -3,14 +3,14 @@ name: build-and-deploy
 on:
     workflow_dispatch:
     push:
+        branches:
+            - main
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
 jobs:
-    nop: { runs-on: ubuntu-latest, steps: [run: ":"] }
-
     build:
         runs-on: ubuntu-latest
         steps:
