@@ -1,25 +1,31 @@
 """main.py"""
 
 from pathlib import Path
-import shutil
+from scripts.core import file_utils
+from scripts.core import parser
 
 BASE_DIR = Path.cwd()
+CONTENT_DIR = BASE_DIR / "content"
 PUBLIC_DIR = BASE_DIR / "public"
 
 
 def main():
     """main"""
 
-    if PUBLIC_DIR.exists():
-        shutil.rmtree(PUBLIC_DIR)
-    PUBLIC_DIR.mkdir()
+    file_utils.reset_dir(PUBLIC_DIR)
 
-    html_content = """
-    <h1>hello</h1>
-    """
+    all_articles = []
+    for md_file in file_utils.collect_markdown_files(CONTENT_DIR):
+        text = file_utils.read_file(md_file)
+        article = parser.parse_markdown(md_file, text)
+        all_articles.append(article)
 
-    output_path = PUBLIC_DIR / "index.html"
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
+    for article in all_articles:
+        context = article.get_context()
+        full_html = f"<html><body>{context["content"]}</body></html>"
+        output_path = article.get_output_path(PUBLIC_DIR)
+
+        file_utils.write_file(output_path, full_html)
+        print(f"    Generated: {output_path}")
 
     return
