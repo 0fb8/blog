@@ -3,6 +3,7 @@
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Any, Dict
+from datetime import datetime
 
 
 @dataclass
@@ -22,8 +23,13 @@ class Article:
         return self.metadata.get("title", ["No Title"])[0]
 
     @property
-    def date(self) -> str:
-        return self.metadata.get("date", [""])[0]
+    def date(self) -> datetime:
+        date_str = self.metadata.get("date", [""])[0]
+        try:
+            # assume YYYY-MM-DD format
+            return datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            return datetime.min
 
     @property
     def url(self) -> str:
