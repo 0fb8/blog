@@ -15,6 +15,8 @@ class Article:
     html_content: str
     metadata: Dict[str, Any]
 
+    # --- Properties ---
+
     @property
     def title(self) -> str:
         return self.metadata.get("title", ["No Title"])[0]
@@ -26,6 +28,8 @@ class Article:
     @property
     def url(self) -> str:
         return f"/posts/{self.source_path.stem}/"
+
+    # --- Methods ---
 
     def get_output_path(self, public_dir: Path) -> Path:
         """build the output file path for the article"""
