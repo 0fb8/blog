@@ -28,4 +28,7 @@ def main():
     article_gen = generators.ArticleGenerator(RENDERER)
     article_gen.generate(all_articles, PUBLIC_DIR)
 
+    index_gen = generators.IndexGenerator(RENDERER)
+    index_gen.generate(all_articles, PUBLIC_DIR)
+
     return
