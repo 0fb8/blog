@@ -15,6 +15,18 @@ class Article:
     html_content: str
     metadata: Dict[str, Any]
 
+    @property
+    def title(self) -> str:
+        return self.metadata.get("title", ["No Title"])[0]
+
+    @property
+    def date(self) -> str:
+        return self.metadata.get("date", [""])[0]
+
+    @property
+    def url(self) -> str:
+        return f"/posts/{self.source_path.stem}/"
+
     def get_output_path(self, public_dir: Path) -> Path:
         """build the output file path for the article"""
         stem = self.source_path.stem
@@ -24,7 +36,7 @@ class Article:
         """construct a context dict for rendering the article in templates"""
         return {
             "content": self.html_content,
-            "title": self.metadata.get("title", ["No Title"])[0],
-            "date": self.metadata.get("date", [""])[0],
-            "url": f"/posts/{self.source_path.stem}/",
+            "title": self.title,
+            "date": self.date,
+            "url": self.url,
         }
