@@ -16,3 +16,16 @@ class ArticleGenerator:
 
             file_utils.write_file(output_path, full_html)
             print(f"    Generated: {output_path}")
+
+
+class IndexGenerator:
+    def __init__(self, renderer):
+        self.renderer = renderer
+
+    def generate(self, articles: list, output_dir: Path):
+        context = {"articles": articles}
+        full_html = self.renderer.render("index.html", context)
+        output_path = output_dir / "index.html"
+
+        file_utils.write_file(output_path, full_html)
+        print(f"    Generated: {output_path} (Index Page)")
