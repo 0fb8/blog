@@ -4,6 +4,7 @@ from pathlib import Path
 from scripts.core import file_utils
 from scripts.core import parser
 from scripts.core import templater
+from scripts.core import generators
 
 BASE_DIR = Path.cwd()
 CONTENT_DIR = BASE_DIR / "content"
@@ -24,12 +25,7 @@ def main():
         article = parser.parse_markdown(md_file, text)
         all_articles.append(article)
 
-    for article in all_articles:
-        context = article.get_context()
-        full_html = RENDERER.render("article.html", context)
-        output_path = article.get_output_path(PUBLIC_DIR)
-
-        file_utils.write_file(output_path, full_html)
-        print(f"    Generated: {output_path}")
+    article_gen = generators.ArticleGenerator(RENDERER)
+    article_gen.generate(all_articles, PUBLIC_DIR)
 
     return
