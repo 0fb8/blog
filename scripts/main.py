@@ -16,6 +16,9 @@ CONFIG_FILE = BASE_DIR / "config.toml"
 
 
 def load_config():
+    cli_parser = argparse.ArgumentParser(description="My SSG Builder")
+    args = cli_parser.parse_args()
+
     with open(CONFIG_FILE, "rb") as f:
         config = tomllib.load(f)
 
