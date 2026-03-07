@@ -11,9 +11,6 @@ BASE_DIR = Path.cwd()
 CONTENT_DIR = BASE_DIR / "content"
 TEMPLATE_DIR = BASE_DIR / "templates"
 PUBLIC_DIR = BASE_DIR / "public"
-
-RENDERER = templater.TemplateRenderer(TEMPLATE_DIR)
-
 CONFIG_FILE = BASE_DIR / "config.toml"
 
 
@@ -36,6 +33,8 @@ def main():
         text = file_utils.read_file(md_file)
         article = parser.parse_markdown(md_file, text)
         all_articles.append(article)
+
+    RENDERER = templater.TemplateRenderer(TEMPLATE_DIR, config)
 
     article_gen = generators.ArticleGenerator(RENDERER)
     article_gen.generate(all_articles, PUBLIC_DIR)
