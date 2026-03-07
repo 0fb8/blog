@@ -6,8 +6,14 @@
 <title>{{ site.title }}</title>
 </head>
 <body>
+<header>
+<a href="{{ site.base_url }}/">Home</a>
+</header>
 <main>
 {% block content %}{% endblock %}
 </main>
+<footer>
+<a href="{{ site.github_url }}">GitHub</a>
+</footer>
 </body>
 </html>
