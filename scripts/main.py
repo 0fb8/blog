@@ -1,5 +1,6 @@
 """main.py"""
 
+import tomllib
 from pathlib import Path
 from scripts.core import file_utils
 from scripts.core import parser
@@ -13,9 +14,20 @@ PUBLIC_DIR = BASE_DIR / "public"
 
 RENDERER = templater.TemplateRenderer(TEMPLATE_DIR)
 
+CONFIG_FILE = BASE_DIR / "config.toml"
+
+
+def load_config():
+    with open(CONFIG_FILE, "rb") as f:
+        config = tomllib.load(f)
+
+    return config
+
 
 def main():
     """main"""
+
+    config = load_config()
 
     file_utils.reset_dir(PUBLIC_DIR)
 
