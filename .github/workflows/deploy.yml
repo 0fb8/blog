@@ -26,7 +26,7 @@ jobs:
               run: pip install -r requirements.txt
 
             - name: Run Build Script
-              run: python run.py
+              run: python run.py --base_url '/blog'
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3

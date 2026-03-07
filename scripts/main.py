@@ -1,5 +1,6 @@
 """main.py"""
 
+import argparse
 import tomllib
 from pathlib import Path
 from scripts.core import file_utils
@@ -15,8 +16,16 @@ CONFIG_FILE = BASE_DIR / "config.toml"
 
 
 def load_config():
+    cli_parser = argparse.ArgumentParser(description="My SSG Builder")
+    cli_parser.add_argument(
+        "--base_url", default="", help="Base URL for deployment (e.g., /blog)"
+    )
+    args = cli_parser.parse_args()
+
     with open(CONFIG_FILE, "rb") as f:
         config = tomllib.load(f)
+
+    config["base_url"] = args.base_url
 
     return config
 
