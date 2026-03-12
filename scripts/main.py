@@ -42,6 +42,7 @@ def main():
         text = file_utils.read_file(md_file)
         article = parser.parse_markdown(md_file, text)
         all_articles.append(article)
+    all_articles.sort(key=lambda a: a.date, reverse=True)
 
     RENDERER = templater.TemplateRenderer(TEMPLATE_DIR, config)
 
