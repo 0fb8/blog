@@ -1,3 +1,8 @@
+---
+title: sample0
+date: 2026-03-08
+---
+
 # 手ごろに試せる Markdown サンプル
 
 > これは Markdown → HTML 変換の動作確認用の短いサンプルです。
