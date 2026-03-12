@@ -6,7 +6,7 @@
 {% for article in articles %}
 <li>
 <a href="{{ site.base_url }}{{ article.url }}">{{ article.title }}</a>
-<small>{{ article.date }}</small>
+<small>{{ article.date.date() }}</small>
 </li>
 {% endfor %}
 </ul>
